@@ -1,0 +1,36 @@
+# Copyright 2024 Google LLC
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     https://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+timeout: 600s
+# This prevents errors if you don't use both _GIT_TAG and _PULL_BASE_REF,
+# or any new substitutions added in the future.
+options:
+  substitution_option: ALLOW_LOOSE
+steps:
+  - name: 'gcr.io/k8s-testimages/gcb-docker-gcloud:v20240718-5ef92b5c36'
+    entrypoint: make
+    env:
+    - GIT_COMMIT=${_GIT_COMMIT}
+    - PULL_BASE_REF=${_PULL_BASE_REF}
+    - REGISTRY_NAME=gcr.io/${_STAGING_PROJECT}
+    - PROJECT=${_PROJECT}
+    - HOME=/root
+    args:
+    - build-nfs-csi-image-and-push
+substitutions:
+  _GIT_COMMIT: '12345'
+  # _PULL_BASE_REF will contain the ref that was pushed to trigger this build -
+  # a branch like 'master' or 'release-0.2', or a tag like 'v0.2'.
+  _PULL_BASE_REF: 'master'
+  _PROJECT: ''
