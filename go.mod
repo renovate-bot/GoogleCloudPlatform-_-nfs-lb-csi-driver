@@ -130,7 +130,7 @@ require (
 )
 
 replace (
-	github.com/google/cel-go => github.com/google/cel-go v0.17.8
+	github.com/google/cel-go => github.com/google/cel-go v0.32.0
 	github.com/prometheus/client_golang => github.com/prometheus/client_golang v1.16.0
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.30.1
 	k8s.io/cloud-provider => k8s.io/cloud-provider v0.30.1
